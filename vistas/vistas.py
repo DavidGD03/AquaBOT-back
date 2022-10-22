@@ -42,7 +42,7 @@ class VistaLogIn(Resource):
 
     def post(self):
         sid='ACc768aba07be273c6004a38d1cacfb0bf'
-        authToken='6b8ace0e464a5682e87fcc02cfad1fae'
+        authToken='38246239e1d5b431089dbffcd390d988'
         client = Client(sid, authToken)
 
         message = client.messages.create(to='whatsapp:+573194625339', 

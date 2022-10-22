@@ -24,4 +24,4 @@ SQLAlchemy==1.4.15
 Werkzeug==2.0.1
 gunicorn==20.1.0
 twilio==7.15.0
-pywhatkit==5.0
+pywhatkit==5.4

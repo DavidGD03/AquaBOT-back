@@ -41,8 +41,6 @@ class VistaSignIn(Resource):
 class VistaLogIn(Resource):
 
     def post(self):
-
-        time.sleep(300)
         sid='ACc768aba07be273c6004a38d1cacfb0bf'
         authToken='6b8ace0e464a5682e87fcc02cfad1fae'
         client = Client(sid, authToken)

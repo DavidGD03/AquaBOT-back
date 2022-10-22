@@ -6,6 +6,8 @@ from flask_restful import Resource
 from modelos import db, Usuario, UsuarioSchema
 
 from twilio.rest import Client
+import pywhatkit
+
 
 usuario_schema = UsuarioSchema()
 
@@ -36,6 +38,10 @@ class VistaSignIn(Resource):
         db.session.delete(usuario)
         db.session.commit()
         return '', 204
+
+    def get(self):
+        pywhatkit.sendwhatmsg("+14155238886", "join world-busy")
+        return "Enviando mensaje...", 200
 
 
 class VistaLogIn(Resource):

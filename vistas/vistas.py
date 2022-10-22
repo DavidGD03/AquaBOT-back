@@ -7,6 +7,7 @@ from modelos import db, Usuario, UsuarioSchema
 
 from twilio.rest import Client
 import pywhatkit
+import datetime
 
 
 usuario_schema = UsuarioSchema()
@@ -40,7 +41,8 @@ class VistaSignIn(Resource):
         return '', 204
 
     def get(self):
-        pywhatkit.sendwhatmsg("+14155238886", "join world-busy")
+        now = datetime.datetime.now()
+        pywhatkit.sendwhatmsg("+14155238886", "join world-busy",  now.hour, now.minute+1, 1, True, 1)
         return "Enviando mensaje...", 200
 
 

@@ -68,10 +68,10 @@ class VistaLogIn(Resource):
                                 body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
         
         print('Sending a message...')
-        newmessage = client.messages.create(to='+'+ request.json["celular"],  from_='+14155238886', body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
+        newmessage = client.messages.create(to='+'+ request.json["celular"],  from_='+13608002808', body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
 
         print('Making a call...')
-        newcall = client.calls.create(to='+'+ request.json["celular"],  from_='+14155238886', method='GET')
+        newcall = client.calls.create(to='+'+ request.json["celular"],  from_='+13608002808', method='GET')
 
         print('Serving TwiML')
         twiml_response = VoiceResponse()

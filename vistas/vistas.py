@@ -8,7 +8,7 @@ from modelos import db, Usuario, UsuarioSchema
 from twilio.rest import Client
 import datetime
 from boto3 import resource
-
+from twilio.twiml.voice_response import VoiceResponse
 from vistas import config
 
 usuario_schema = UsuarioSchema()
@@ -68,6 +68,17 @@ class VistaLogIn(Resource):
         message = client.messages.create(to='whatsapp:+' + request.json["celular"], 
                                         from_='whatsapp:+14155238886',
                                 body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
+        
+        print('Sending a message...')
+        newmessage = client.messages.create(to='+'+ request.json["celular"],  from_='+14155238886', body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
+
+        print('Making a call...')
+        newcall = client.calls.create(to='+'+ request.json["celular"],  from_='+14155238886', method='GET')
+
+        print('Serving TwiML')
+        twiml_response = VoiceResponse()
+        twiml_response.say('Hello!')
+        twiml_response.hangup()
         print(request.json["celular"])
         return "Enviando mensaje...", 200
 

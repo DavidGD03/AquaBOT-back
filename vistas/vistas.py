@@ -31,7 +31,7 @@ class VistaSignIn(Resource):
         response = MovieTable.put_item(
             Item = {
                 'email': request.json["email"],
-                'nombre' : request.json["nombre"],
+                'nombres' : request.json["nombre"],
                 'apellidos' : request.json["apellidos"],
                 'sexo' : request.json["sexo"],
                 'fecha_nacimiento' : request.json["nacimiento"],

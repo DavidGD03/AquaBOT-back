@@ -7,25 +7,42 @@ from modelos import db, Usuario, UsuarioSchema
 
 from twilio.rest import Client
 import datetime
+from boto3 import resource
 
+from vistas import config
 
 usuario_schema = UsuarioSchema()
 
 
 
+AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
+REGION_NAME = config.REGION_NAME
+ 
+resource = resource(
+   'dynamodb',
+   aws_access_key_id     = AWS_ACCESS_KEY_ID,
+   aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
+   region_name           = REGION_NAME
+)
+
 class VistaSignIn(Resource):
 
     def post(self):
-        usuario = Usuario.query.filter(Usuario.usuario == request.json["usuario"]).first()
-
-        if not usuario is None:
-            return "Ya existe un usuario con ese nombre.", 404
-        else:
-            nuevo_usuario = Usuario(usuario=request.json["usuario"], contrasena=request.json["contrasena"], admin=request.json["admin"])
-            db.session.add(nuevo_usuario)
-            db.session.commit()
-            token_de_acceso = create_access_token(identity=nuevo_usuario.id)
-            return {"mensaje": "usuario creado exitosamente", "token": token_de_acceso, "id": nuevo_usuario.id}
+        MovieTable = resource.Table('ClientesBBVA')
+        response = MovieTable.put_item(
+            Item = {
+                'email': request.json["email"],
+                'nombre' : request.json["nombre"],
+                'apellidos' : request.json["apellidos"],
+                'sexo' : request.json["sexo"],
+                'fecha_nacimiento' : request.json["nacimiento"],
+                'fecha_expedicion_cc' : request.json["expedicion"],
+                'celular' : request.json["celular"],
+                'cedula' : request.json["cedula"],
+            }
+        )
+        return response
 
     def put(self, id_usuario):
         usuario = Usuario.query.get_or_404(id_usuario)
@@ -48,8 +65,9 @@ class VistaLogIn(Resource):
         authToken='38246239e1d5b431089dbffcd390d988'
         client = Client(sid, authToken)
 
-        message = client.messages.create(to='whatsapp:+573194625339', 
+        message = client.messages.create(to='whatsapp:+' + request.json["celular"], 
                                         from_='whatsapp:+14155238886',
                                 body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
+        print(request.json["celular"])
         return "Enviando mensaje...", 200
 

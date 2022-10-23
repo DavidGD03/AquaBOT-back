@@ -21,6 +21,7 @@ resource = resource(
 class VistaSignIn(Resource):
 
     def post(self):
+        # DynamoDB Table
         MovieTable = resource.Table('ClientesBBVA')
         response = MovieTable.put_item(
             Item = {

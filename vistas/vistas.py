@@ -70,11 +70,11 @@ class VistaLogIn(Resource):
         print('Sending a whatsapp message...')
         message = client.messages.create(to='whatsapp:+' + request.json["celular"], 
                                         from_='whatsapp:+14155238886',
-                                        body='Hola '+nombres+' '+apellidos', vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
+                                        body='Hola ' + nombres + ' '+apellidos+', vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
         # Send SMS message
         print('Sending a SMS message...')
         newmessage = client.messages.create(to='+'+ request.json["celular"],  messaging_service_sid='MGdbeb75984a1a004b4dee531150c27f63', 
-        body='Hola '+nombres+' '+apellidos', vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, para continuar da clic en el siguiente link https://api.whatsapp.com/send?phone=+14155238886&text=si%20quiero')
+        body='Hola '+nombres+' '+apellidos+', vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, para continuar da clic en el siguiente link https://api.whatsapp.com/send?phone=+14155238886&text=si%20quiero')
         # Call via voice
         print('Making a call...')
         client.calls.create(to='+'+ request.json["celular"],  from_='+13608002808', method='GET', url='https://aquabot-bucket.s3.amazonaws.com/voice.xml')

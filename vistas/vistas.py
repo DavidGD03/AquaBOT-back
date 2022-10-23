@@ -2,8 +2,6 @@ import time
 from flask import request
 from flask_restful import Resource
 
-from modelos import db, Usuario, UsuarioSchema
-
 from twilio.rest import Client
 from boto3 import resource
 from vistas import config

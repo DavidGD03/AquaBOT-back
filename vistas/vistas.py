@@ -62,21 +62,15 @@ class VistaLogIn(Resource):
         sid='ACc768aba07be273c6004a38d1cacfb0bf'
         authToken='38246239e1d5b431089dbffcd390d988'
         client = Client(sid, authToken)
-
         message = client.messages.create(to='whatsapp:+' + request.json["celular"], 
                                         from_='whatsapp:+14155238886',
                                 body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
         
         print('Sending a message...')
-        newmessage = client.messages.create(to='+'+ request.json["celular"],  from_='+13608002808', body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
-
+        newmessage = client.messages.create(to='+'+ request.json["celular"],  messaging_service_sid='MGdbeb75984a1a004b4dee531150c27f63', body='Hola :), vimos que no completaste el proceso para obtener tu tarjeta de crédito Aqua BBVA, ¿deseas hacer el proceso por este medio?')
         print('Making a call...')
-        newcall = client.calls.create(to='+'+ request.json["celular"],  from_='+13608002808', method='GET')
-
+        client.calls.create(to='+'+ request.json["celular"],  from_='+13608002808', method='GET', url='https://aquabot-bucket.s3.amazonaws.com/voice.xml')
         print('Serving TwiML')
-        twiml_response = VoiceResponse()
-        twiml_response.say('Hello!')
-        twiml_response.hangup()
         print(request.json["celular"])
         return "Enviando mensaje...", 200
 

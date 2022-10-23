@@ -6,7 +6,6 @@ from twilio.rest import Client
 from boto3 import resource
 from vistas import config
 
-usuario_schema = UsuarioSchema()
 
 AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
@@ -42,18 +41,6 @@ class VistaSignIn(Resource):
         apellidos = request.json["apellidos"]
 
         return response
-
-    def put(self, id_usuario):
-        usuario = Usuario.query.get_or_404(id_usuario)
-        usuario.contrasena = request.json.get("contrasena", usuario.contrasena)
-        db.session.commit()
-        return usuario_schema.dump(usuario)
-
-    def delete(self, id_usuario):
-        usuario = Usuario.query.get_or_404(id_usuario)
-        db.session.delete(usuario)
-        db.session.commit()
-        return '', 204
 
 
 
